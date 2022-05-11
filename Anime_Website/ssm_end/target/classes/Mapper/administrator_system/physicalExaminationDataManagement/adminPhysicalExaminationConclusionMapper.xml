@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.administratorSystem.physicalExaminationDataManagementMapper.adminPhysicalExaminationConclusionMapper">
+    <resultMap id="BaseResultMap" type="com.example.entity.physicalExamination.physicalExaminationConclusionEntity">
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="account" column="account" jdbcType="VARCHAR"/>
+        <result property="physicalExaminationConclusion" column="physicalExaminationConclusion" jdbcType="VARCHAR"/>
+        <result property="passkey" column="passkey" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        name,account,gender,cultureLevel,nation,hometown,address,originalSchool,profession,whetherMarry,brithday,pastMedicalHistory,passkey
+    </sql>
+
+    <select id="getPhysicalExaminationConclusionInfor" resultMap="BaseResultMap" parameterType="com.example.entity.physicalExamination.physicalExaminationConclusionEntity">
+        select * from physical_examination_conclusion
+    </select>
+
+    <insert id="addPhysicalExaminationConclusionInfor" parameterType="com.example.entity.physicalExamination.physicalExaminationConclusionEntity">
+        insert into physical_examination_conclusion values
+        (#{name}, #{account}, #{physicalExaminationConclusion}, #{passkey})
+    </insert>
+
+    <update id="modifyPhysicalExaminationConclusionInfor" parameterType="com.example.entity.physicalExamination.physicalExaminationConclusionEntity">
+        update physical_examination_conclusion set name=#{name}, account=#{account},
+        physicalExaminationConclusion=#{physicalExaminationConclusion}, passkey=#{passkey} where account=#{account}
+    </update>
+
+    <delete id="deletePhysicalExaminationConclusionInfor" parameterType="java.lang.String">
+        delete from physical_examination_conclusion where account=#{account}
+    </delete>
+
+</mapper>

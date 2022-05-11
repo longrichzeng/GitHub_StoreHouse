@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.selectClass.chooseCourseMapper">
+    <resultMap id="BaseResultMap" type="com.example.entity.selectClass.chooseCourseEntity">
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="account" column="account" jdbcType="VARCHAR"/>
+        <result property="firstCourse" column="firstCourse" jdbcType="VARCHAR"/>
+        <result property="firstNumber" column="firstNumber" jdbcType="VARCHAR"/>
+        <result property="secondCourse" column="secondCourse" jdbcType="VARCHAR"/>
+        <result property="secondNumber" column="secondNumber" jdbcType="VARCHAR"/>
+        <result property="thirtCourse" column="thirtCourse" jdbcType="VARCHAR"/>
+        <result property="thirtNumber" column="thirtNumber" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        name,account,firstCourse,firstNumber,secondCourse,secondNumber,thirtCourse,thirtNumber
+    </sql>
+
+    <select id="getChooseCourseNumber" resultMap="BaseResultMap" parameterType="com.example.entity.selectClass.chooseCourseEntity">
+        select * from choose_course where account=#{account}
+    </select>
+
+    <insert id="addChooseCourse" parameterType="com.example.entity.selectClass.chooseCourseEntity">
+        insert into choose_course values
+        (#{name}, #{account}, #{firstCourse}, #{firstNumber}, #{secondCourse}, #{secondNumber},#{thirtCourse}, #{thirtNumber})
+    </insert>
+
+</mapper>

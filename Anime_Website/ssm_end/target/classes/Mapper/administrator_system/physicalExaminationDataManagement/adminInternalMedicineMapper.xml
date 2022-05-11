@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.administratorSystem.physicalExaminationDataManagementMapper.adminInternalMedicineMapper">
+    <resultMap id="BaseResultMap" type="com.example.entity.physicalExamination.internalMedicineEntity">
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="account" column="account" jdbcType="VARCHAR"/>
+        <result property="systolic" column="gender" jdbcType="VARCHAR"/>
+        <result property="diastolic" column="diastolic" jdbcType="VARCHAR"/>
+        <result property="development" column="development" jdbcType="VARCHAR"/>
+        <result property="nerve" column="nerve" jdbcType="VARCHAR"/>
+        <result property="breathe" column="breathe" jdbcType="VARCHAR"/>
+        <result property="cardiovascular" column="cardiovascular" jdbcType="VARCHAR"/>
+        <result property="liver" column="liver" jdbcType="VARCHAR"/>
+        <result property="spleen" column="spleen" jdbcType="VARCHAR"/>
+        <result property="chestXray" column="chestXray" jdbcType="VARCHAR"/>
+        <result property="abnormalChestXray" column="abnormalChestXray" jdbcType="VARCHAR"/>
+        <result property="internalMedicineAbnormalities" column="internalMedicineAbnormalities" jdbcType="VARCHAR"/>
+        <result property="passkey" column="passkey" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        name,account,gender,cultureLevel,nation,hometown,address,originalSchool,profession,whetherMarry,brithday,pastMedicalHistory,passkey
+    </sql>
+
+    <select id="getInternalMedicineInfor" resultMap="BaseResultMap" parameterType="com.example.entity.physicalExamination.internalMedicineEntity">
+        select * from internal_medicine
+    </select>
+
+    <insert id="addInternalMedicineInfor" parameterType="com.example.entity.physicalExamination.internalMedicineEntity">
+        insert into internal_medicine values
+        (#{name}, #{account}, #{systolic}, #{diastolic}, #{development}, #{nerve}, #{breathe}, #{cardiovascular}, #{liver}, #{spleen},
+        #{chestXray}, #{abnormalChestXray}, #{internalMedicineAbnormalities}, #{passkey})
+    </insert>
+
+    <update id="modifyInternalMedicineInfor" parameterType="com.example.entity.physicalExamination.internalMedicineEntity">
+        update internal_medicine set name=#{name}, account=#{account}, systolic=#{systolic}, diastolic=#{diastolic},development=#{development},
+        nerve=#{nerve}, breathe=#{breathe}, cardiovascular=#{cardiovascular},liver=#{liver},spleen=#{spleen}, chestXray=#{chestXray},
+        abnormalChestXray=#{abnormalChestXray}, internalMedicineAbnormalities=#{internalMedicineAbnormalities}, passkey=#{passkey} where account=#{account}
+    </update>
+
+    <delete id="deleteInternalMedicineInfor" parameterType="java.lang.String">
+        delete from internal_medicine where account=#{account}
+    </delete>
+
+</mapper>

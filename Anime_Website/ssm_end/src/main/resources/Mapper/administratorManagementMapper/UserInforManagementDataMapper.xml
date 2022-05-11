@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.anime.Dao.administratorManagementDao.UserInforManagementDataDao">
+    <resultMap id="BaseResultMap" type="com.example.anime.Entity.userLoginInformationEntity.UserLoginInformationEntity">
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="salt" column="salt" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="userPermission" column="userPermission" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getUserInforData" resultMap="BaseResultMap" parameterType="com.example.anime.Entity.userLoginInformationEntity.UserLoginInformationEntity">
+        select * from user_login_data_table
+    </select>
+
+    <select id="getUserInforByUserPermission" resultMap="BaseResultMap" parameterType="com.example.anime.Entity.userLoginInformationEntity.UserLoginInformationEntity">
+        select * from user_login_data_table where userPermission=#{userPermission}
+    </select>
+
+    <select id="getUserInforByUserName" resultMap="BaseResultMap" parameterType="com.example.anime.Entity.userLoginInformationEntity.UserLoginInformationEntity">
+        select * from user_login_data_table where name=#{name}
+    </select>
+
+    <select id="getUserInforByPhone" resultMap="BaseResultMap" parameterType="com.example.anime.Entity.userLoginInformationEntity.UserLoginInformationEntity">
+        select * from user_login_data_table where phone=#{phone}
+    </select>
+
+    <select id="getUserInforByEmail" resultMap="BaseResultMap" parameterType="com.example.anime.Entity.userLoginInformationEntity.UserLoginInformationEntity">
+        select * from user_login_data_table where email=#{email}
+    </select>
+
+    <update id="modifyUserInforData" parameterType="com.example.anime.Entity.userLoginInformationEntity.UserLoginInformationEntity">
+        update user_login_data_table set username=#{username}, password=#{password}, salt=#{salt},
+        name=#{name}, phone=#{phone}, email=#{email}, userPermission=#{userPermission}
+        where username=#{username} and phone=#{phone}
+    </update>
+
+    <delete id="deleteUserInforData" parameterType="java.lang.String">
+        delete from user_login_data_table where username=#{username} and phone=#{phone}
+    </delete>
+
+    <insert id="addUserInforData" parameterType="com.example.anime.Entity.userLoginInformationEntity.UserLoginInformationEntity">
+        insert into user_login_data_table values
+        (#{username}, #{password}, #{salt}, #{name}, #{phone}, #{email}, #{userPermission})
+    </insert>
+</mapper>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.administratorSystem.physicalExaminationDataManagementMapper.adminOphtalmologyMapper">
+    <resultMap id="BaseResultMap" type="com.example.entity.physicalExamination.ophtalmologyEntity">
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="account" column="account" jdbcType="VARCHAR"/>
+        <result property="rightVision" column="rightVision" jdbcType="VARCHAR"/>
+        <result property="leftVision" column="leftVision" jdbcType="VARCHAR"/>
+        <result property="rightCorrectedVision" column="rightCorrectedVision" jdbcType="VARCHAR"/>
+        <result property="leftCorrectedVision" column="leftCorrectedVision" jdbcType="VARCHAR"/>
+        <result property="otherEyeDisease" column="otherEyeDisease" jdbcType="VARCHAR"/>
+        <result property="colorVision" column="colorVision" jdbcType="VARCHAR"/>
+        <result property="passkey" column="passkey" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        name,account,gender,cultureLevel,nation,hometown,address,originalSchool,profession,whetherMarry,brithday,pastMedicalHistory,passkey
+    </sql>
+
+    <select id="getOphtalmologyInfor" resultMap="BaseResultMap" parameterType="com.example.entity.physicalExamination.ophtalmologyEntity">
+        select * from ophthalmology
+    </select>
+
+    <insert id="addOphtalmologyInfor" parameterType="com.example.entity.physicalExamination.ophtalmologyEntity">
+        insert into ophthalmology values
+        (#{name}, #{account}, #{rightVision}, #{leftVision}, #{rightCorrectedVision}, #{leftCorrectedVision}, #{otherEyeDisease},
+        #{colorVision}, #{passkey})
+    </insert>
+
+    <update id="modifyOphtalmologyInfor" parameterType="com.example.entity.physicalExamination.ophtalmologyEntity">
+        update ophthalmology set name=#{name}, account=#{account}, rightVision=#{rightVision}, leftVision=#{leftVision},
+        rightCorrectedVision=#{rightCorrectedVision},leftCorrectedVision=#{leftCorrectedVision}, otherEyeDisease=#{otherEyeDisease},
+        colorVision=#{colorVision}, passkey=#{passkey} where account=#{account}
+    </update>
+
+    <delete id="deleteOphtalmologyInfor" parameterType="java.lang.String">
+        delete from ophthalmology where account=#{account}
+    </delete>
+
+</mapper>

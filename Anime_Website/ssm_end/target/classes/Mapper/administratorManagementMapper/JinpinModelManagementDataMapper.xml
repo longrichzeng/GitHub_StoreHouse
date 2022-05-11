@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.anime.Dao.administratorManagementDao.JinpinModelManagementDataDao">
+    <resultMap id="BaseResultMap" type="com.example.anime.Entity.administratorManagementEntity.JinpinModelManagementDataEntity">
+        <result property="jinPinNumber" column="jinPinNumber" jdbcType="VARCHAR"/>
+        <result property="jinPinName" column="jinPinName" jdbcType="VARCHAR"/>
+        <result property="jinPinType" column="jinPinType" jdbcType="VARCHAR"/>
+        <result property="jinPinManufacturer" column="jinPinManufacturer" jdbcType="VARCHAR"/>
+        <result property="jinPinPrice" column="jinPinPrice" jdbcType="VARCHAR"/>
+        <result property="jinPinRecommendIndex" column="jinPinRecommendIndex" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getJinpinModelData" resultMap="BaseResultMap" parameterType="com.example.anime.Entity.administratorManagementEntity.JinpinModelManagementDataEntity">
+        select * from jinpin_model_management_table
+    </select>
+
+    <select id="getJinpinDataByIndex" resultMap="BaseResultMap" parameterType="com.example.anime.Entity.administratorManagementEntity.JinpinModelManagementDataEntity">
+        select * from jinpin_model_management_table where jinPinRecommendIndex = #{jinPinRecommendIndex}
+    </select>
+
+    <select id="getJinpinDataByName" resultMap="BaseResultMap" parameterType="com.example.anime.Entity.administratorManagementEntity.JinpinModelManagementDataEntity">
+        select * from jinpin_model_management_table where jinPinName = #{jinPinName}
+    </select>
+
+    <update id="modifyJinpinModelData" parameterType="com.example.anime.Entity.administratorManagementEntity.JinpinModelManagementDataEntity">
+        update jinpin_model_management_table set jinPinNumber=#{jinPinNumber}, jinPinName=#{jinPinName}, jinPinType=#{jinPinType},
+        jinPinManufacturer=#{jinPinManufacturer}, jinPinPrice=#{jinPinPrice}, jinPinRecommendIndex=#{jinPinRecommendIndex}
+        where jinPinNumber=#{jinPinNumber}
+    </update>
+
+    <delete id="deleteJinpinModelData" parameterType="java.lang.String">
+        delete from jinpin_model_management_table where jinPinNumber=#{jinPinNumber}
+    </delete>
+
+    <insert id="addJinpinModelData" parameterType="com.example.anime.Entity.administratorManagementEntity.JinpinModelManagementDataEntity">
+        insert into jinpin_model_management_table values
+        (#{jinPinNumber}, #{jinPinName}, #{jinPinType}, #{jinPinManufacturer}, #{jinPinPrice}, #{jinPinRecommendIndex})
+    </insert>
+</mapper>

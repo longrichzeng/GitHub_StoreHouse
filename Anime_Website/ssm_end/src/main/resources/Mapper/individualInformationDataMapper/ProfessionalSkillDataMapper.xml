@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.anime.Dao.individualInformationDataDao.ProfessionalSkillDataDao">
+    <resultMap id="BaseResultMap" type="com.example.anime.Entity.individualInformationDataEntity.ProfessionalSkillDataEntity">
+        <result property="userName" column="userName" jdbcType="VARCHAR"/>
+        <result property="location" column="location" jdbcType="VARCHAR"/>
+        <result property="firstItemName" column="firstItemName" jdbcType="VARCHAR"/>
+        <result property="firstItemData" column="firstItemData" jdbcType="VARCHAR"/>
+        <result property="secondItemName" column="secondItemName" jdbcType="VARCHAR"/>
+        <result property="secondItemData" column="secondItemData" jdbcType="VARCHAR"/>
+        <result property="thirtItemName" column="thirtItemName" jdbcType="VARCHAR"/>
+        <result property="thirtItemData" column="thirtItemData" jdbcType="VARCHAR"/>
+        <result property="fourthItemName" column="fourthItemName" jdbcType="VARCHAR"/>
+        <result property="fourthItemData" column="fourthItemData" jdbcType="VARCHAR"/>
+        <result property="fifthItemName" column="fifthItemName" jdbcType="VARCHAR"/>
+        <result property="fifthItemData" column="fifthItemData" jdbcType="VARCHAR"/>
+        <result property="sixthItemName" column="sixthItemName" jdbcType="VARCHAR"/>
+        <result property="sixthItemData" column="sixthItemData" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getProfessionalSkillData" resultMap="BaseResultMap" parameterType="com.example.anime.Entity.individualInformationDataEntity.ProfessionalSkillDataEntity">
+        select * from professional_skill_table where userName=#{userName} and location=#{location}
+    </select>
+
+    <update id="modifyProfessionalSkillData" parameterType="com.example.anime.Entity.individualInformationDataEntity.ProfessionalSkillDataEntity">
+        update professional_skill_table
+        <set>
+            userName=#{userName},
+            firstItemName=#{firstItemName},firstItemData=#{firstItemData},
+            secondItemName=#{secondItemName}, secondItemData=#{secondItemData},
+            thirtItemName=#{thirtItemName}, thirtItemData=#{thirtItemData},
+            fourthItemName=#{fourthItemName},fourthItemData=#{fourthItemData},
+            fifthItemName=#{fifthItemName}, fifthItemData=#{fifthItemData},
+            sixthItemName=#{sixthItemName}, sixthItemData=#{sixthItemData}
+        </set>
+        where userName=#{userName} and location=#{location}
+    </update>
+
+    <delete id="deleteProfessionalSkillData" parameterType="java.lang.String">
+        delete from professional_skill_table where userName=#{userName} and location=#{location}
+    </delete>
+
+    <delete id="deleteAllProfessionalSkillData" parameterType="java.lang.String">
+        delete from professional_skill_table where userName=#{userName}
+    </delete>
+
+    <insert id="addProfessionalSkillData" parameterType="com.example.anime.Entity.individualInformationDataEntity.ProfessionalSkillDataEntity">
+        insert into professional_skill_table values
+        (#{userName}, #{location}, #{firstItemName}, #{firstItemData}, #{secondItemName}, #{secondItemData}, #{thirtItemName},
+         #{thirtItemData}, #{fourthItemName}, #{fourthItemData}, #{fifthItemName}, #{fifthItemData}, #{sixthItemName}, #{sixthItemData})
+    </insert>
+
+</mapper>

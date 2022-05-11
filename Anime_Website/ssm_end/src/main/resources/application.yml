@@ -1,0 +1,32 @@
+# 端口配置
+server:
+  port: 8084
+  servlet:
+    session:
+      cookie:
+        secure: true
+
+spring:
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+    database: 0
+
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/anime_website_database?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+      username: root
+      password: 286465
+
+mybatis-plus:
+  type-aliases-package: com.example.anime.Entity,; com.example.anime.Dto
+  configuration:
+    map-underscore-to-camel-case: true
+#  mapper-locations: classpath:/Mapper/userLoginInformationMapper/UserLoginInformationMapper.xml
+  mapper-locations: classpath:/Mapper/administratorManagementMapper/*.xml,
+                    classpath:/Mapper/individualInformationDataMapper/*.xml,
+                    classpath:/Mapper/shoppingCartDataMapper/*.xml,
+                    classpath:/Mapper/userLoginInformationMapper/*.xml

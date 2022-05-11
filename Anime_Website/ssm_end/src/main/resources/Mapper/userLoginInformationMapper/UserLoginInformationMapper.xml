@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.anime.Dao.userLoginInformationDao.UserLoginInformationDao">
+    <resultMap id="BaseResultMapFirst" type="com.example.anime.Entity.userLoginInformationEntity.UserLoginInformationEntity">
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="salt" column="salt" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="userPermission" column="userPermission" jdbcType="VARCHAR"/>
+    </resultMap>
+<!--*************************************************************************************************************************-->
+    <resultMap id="BaseResultMapSecond" type="com.example.anime.Dto.UserLoginInformationDTO">
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="userPermission" column="userPermission" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="loginInfor" resultMap="BaseResultMapFirst" parameterType="com.example.anime.Entity.userLoginInformationEntity.UserLoginInformationEntity">
+        select * from user_login_data_table where username=#{username} and password=#{password}
+    </select>
+
+    <select id="getUserInfor" resultMap="BaseResultMapFirst" parameterType="com.example.anime.Entity.userLoginInformationEntity.UserLoginInformationEntity">
+        select * from user_login_data_table where username=#{username}
+    </select>
+
+    <insert id="addRegisteredInfor" parameterType="com.example.anime.Entity.userLoginInformationEntity.UserLoginInformationEntity">
+        insert into user_login_data_table values
+        (#{username}, #{password}, #{salt}, #{name}, #{phone}, #{email}, #{userPermission})
+    </insert>
+
+    <delete id="deleteAllUserLoginInforData" parameterType="com.example.anime.Entity.userLoginInformationEntity.UserLoginInformationEntity">
+        delete from user_login_data_table where username=#{username}
+    </delete>
+
+</mapper>

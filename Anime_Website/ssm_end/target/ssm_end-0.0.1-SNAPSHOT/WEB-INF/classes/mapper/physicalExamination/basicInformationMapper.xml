@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.physicalExamination.basicInformationMapper">
+    <resultMap id="BaseResultMap" type="com.example.entity.physicalExamination.basicInformationEntity">
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="account" column="account" jdbcType="VARCHAR"/>
+        <result property="gender" column="gender" jdbcType="VARCHAR"/>
+        <result property="cultureLevel" column="cultureLevel" jdbcType="VARCHAR"/>
+        <result property="nation" column="nation" jdbcType="VARCHAR"/>
+        <result property="hometown" column="hometown" jdbcType="VARCHAR"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
+        <result property="originalSchool" column="originalSchool" jdbcType="VARCHAR"/>
+        <result property="profession" column="profession" jdbcType="VARCHAR"/>
+        <result property="whetherMarry" column="whetherMarry" jdbcType="INTEGER"/>
+        <result property="brithday" column="brithday" jdbcType="VARCHAR"/>
+        <result property="pastMedicalHistory" column="pastMedicalHistory" jdbcType="VARCHAR"/>
+        <result property="passkey" column="passkey" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        name,account,gender,cultureLevel,nation,hometown,address,originalSchool,profession,whetherMarry,brithday,pastMedicalHistory,passkey
+    </sql>
+
+    <insert id="addBasicInformation" parameterType="com.example.entity.physicalExamination.basicInformationEntity">
+        insert into basic_information values
+        (#{name}, #{account}, #{gender}, #{cultureLevel}, #{nation}, #{hometown}, #{address}, #{originalSchool}, #{profession}, #{whetherMarry}, #{brithday}, #{pastMedicalHistory}, #{passkey})
+    </insert>
+
+    <select id="getBasicInformation" resultMap="BaseResultMap" parameterType="com.example.entity.physicalExamination.basicInformationEntity">
+        select * from basic_information where account=#{account}
+    </select>
+
+</mapper>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.anime.Dao.administratorManagementDao.DataAnalysisManagementDataDao">
+    <resultMap id="BaseResultMap" type="com.example.anime.Dto.DataGeneratedDailyDTO">
+        <result property="dataId" column="dataId" jdbcType="VARCHAR"/>
+        <result property="userDailyRegis" column="userDailyRegis" jdbcType="VARCHAR"/>
+        <result property="dailyLoginOfUsers" column="dailyLoginOfUsers" jdbcType="VARCHAR"/>
+        <result property="dailyPurchasesOfJinpin" column="dailyPurchasesOfJinpin" jdbcType="VARCHAR"/>
+        <result property="dateTime" column="dateTime" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getAnalysisData" resultMap="BaseResultMap" parameterType="com.example.anime.Dto.DataGeneratedDailyDTO">
+        select * from data_generated_daily
+    </select>
+
+    <select id="getAnalysisDataBeforeSevenDay" resultMap="BaseResultMap" parameterType="com.example.anime.Dto.DataGeneratedDailyDTO">
+        SELECT * FROM data_generated_daily WHERE DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt; DATE(DATETIME)
+    </select>
+
+    <select id="getAnimeDrameDataTotal" resultType="java.lang.Integer">
+        SELECT COUNT(*) as total from anime_drama_management_table
+    </select>
+
+    <select id="getAnimeMusicDataTotal" resultType="java.lang.Integer">
+        SELECT COUNT(*) as total from anime_music_management_table
+    </select>
+
+    <select id="getJinpinModelDataTotal" resultType="java.lang.Integer">
+        SELECT COUNT(*) as total from jinpin_model_management_table
+    </select>
+
+    <select id="getNotesDataTotal" resultType="java.lang.Integer">
+        SELECT COUNT(*) as total from notes_management_table
+    </select>
+
+    <select id="getUserDataTotal" resultType="java.lang.Integer">
+        SELECT COUNT(*) as total from user_login_data_table
+    </select>
+
+    <select id="getDataByTime" resultMap="BaseResultMap" parameterType="com.example.anime.Dto.DataGeneratedDailyDTO">
+        select * from data_generated_daily where dateTime=#{dateTime}
+    </select>
+    <!--*******************************************************************************************************************************-->
+    <update id="modifyOneAnimeDrameDataTotal" parameterType="com.example.anime.Dto.DataGeneratedDailyDTO">
+        update data_generated_daily
+        <set>
+            userDailyRegis = userDailyRegis + 1,
+        </set>
+        where dateTime=CURDATE()
+    </update>
+
+    <update id="modifyOneAnimeMusicDataTotal" parameterType="com.example.anime.Dto.DataGeneratedDailyDTO">
+        update data_generated_daily
+        <set>
+            dailyLoginOfUsers = dailyLoginOfUsers + 1,
+        </set>
+        where dateTime=CURDATE()
+    </update>
+
+    <update id="modifyOneJinpinModelDataTotal" parameterType="com.example.anime.Dto.DataGeneratedDailyDTO">
+        update data_generated_daily
+        <set>
+            dailyPurchasesOfJinpin = dailyPurchasesOfJinpin + 1,
+        </set>
+        where dateTime=CURDATE()
+    </update>
+    <!--*******************************************************************************************************************************-->
+    <insert id="addOneData" parameterType="com.example.anime.Dto.DataGeneratedDailyDTO">
+        insert into data_generated_daily values
+        (#{dataId}, #{userDailyRegis}, #{dailyLoginOfUsers}, #{dailyPurchasesOfJinpin}, #{dateTime})
+    </insert>
+</mapper>

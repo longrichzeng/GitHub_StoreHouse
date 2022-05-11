@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.anime.Dao.administratorManagementDao.AnimeMusicManagementDataDao">
+    <resultMap id="BaseResultMap" type="com.example.anime.Entity.administratorManagementEntity.AnimeMusicManagementDataEntity">
+        <result property="musicNumber" column="musicNumber" jdbcType="VARCHAR"/>
+        <result property="musicName" column="musicName" jdbcType="VARCHAR"/>
+        <result property="musicType" column="musicType" jdbcType="VARCHAR"/>
+        <result property="musicSinger" column="musicSinger" jdbcType="VARCHAR"/>
+        <result property="musicRecommendIndex" column="musicRecommendIndex" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getAnimeMusicData" resultMap="BaseResultMap" parameterType="com.example.anime.Entity.administratorManagementEntity.AnimeMusicManagementDataEntity">
+        select * from anime_music_management_table
+    </select>
+
+    <select id="getMusicDataByIndex" resultMap="BaseResultMap" parameterType="com.example.anime.Entity.administratorManagementEntity.AnimeMusicManagementDataEntity">
+        select * from anime_music_management_table where musicRecommendIndex=#{musicRecommendIndex}
+    </select>
+
+    <select id="getMusicDataByName" resultMap="BaseResultMap" parameterType="com.example.anime.Entity.administratorManagementEntity.AnimeMusicManagementDataEntity">
+        select * from anime_music_management_table where musicName=#{musicName}
+    </select>
+
+    <update id="modifyAnimeMusicData" parameterType="com.example.anime.Entity.administratorManagementEntity.AnimeMusicManagementDataEntity">
+        update anime_music_management_table set musicNumber=#{musicNumber}, musicName=#{musicName}, musicType=#{musicType},
+        musicSinger=#{musicSinger}, musicRecommendIndex=#{musicRecommendIndex} where musicNumber=#{musicNumber}
+    </update>
+
+    <delete id="deleteAnimeMusicData" parameterType="java.lang.String">
+        delete from anime_music_management_table where musicNumber=#{musicNumber}
+    </delete>
+
+    <insert id="addAnimeMusicData" parameterType="com.example.anime.Entity.administratorManagementEntity.AnimeMusicManagementDataEntity">
+        insert into anime_music_management_table values
+        (#{musicNumber}, #{musicName}, #{musicType}, #{musicSinger}, #{musicRecommendIndex})
+    </insert>
+</mapper>

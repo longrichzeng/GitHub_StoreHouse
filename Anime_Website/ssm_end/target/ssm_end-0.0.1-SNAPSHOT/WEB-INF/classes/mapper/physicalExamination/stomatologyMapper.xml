@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.physicalExamination.stomatologyMapper">
+    <resultMap id="BaseResultMap" type="com.example.entity.physicalExamination.stomatologyEntity">
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="account" column="account" jdbcType="VARCHAR"/>
+        <result property="lipPalate" column="lipPalate" jdbcType="VARCHAR"/>
+        <result property="teeth" column="teeth" jdbcType="VARCHAR"/>
+        <result property="stutter" column="stutter" jdbcType="VARCHAR"/>
+        <result property="oralAbnormalities" column="oralAbnormalities" jdbcType="VARCHAR"/>
+        <result property="passkey" column="passkey" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        name,account,rightHearing,leftHearing,small,earNoseThroat,passkey
+    </sql>
+
+    <insert id="addStomatologyInfor" parameterType="com.example.entity.physicalExamination.stomatologyEntity">
+        insert into stomatology values
+        (#{name}, #{account}, #{lipPalate}, #{teeth}, #{stutter}, #{oralAbnormalities}, #{passkey})
+    </insert>
+
+    <select id="getStomatologyInfor" resultMap="BaseResultMap" parameterType="com.example.entity.physicalExamination.stomatologyEntity">
+        select * from stomatology where account=#{account}
+    </select>
+
+</mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.anime.Dao.individualInformationDataDao.ExpandSkillsDataDao">
+    <resultMap id="BaseResultMap" type="com.example.anime.Entity.individualInformationDataEntity.ExpandSkillsDataEntity">
+        <result property="userName" column="userName" jdbcType="VARCHAR"/>
+        <result property="location" column="location" jdbcType="VARCHAR"/>
+        <result property="firstItemName" column="firstItemName" jdbcType="VARCHAR"/>
+        <result property="firstItemData" column="firstItemData" jdbcType="VARCHAR"/>
+        <result property="secondItemName" column="secondItemName" jdbcType="VARCHAR"/>
+        <result property="secondItemData" column="secondItemData" jdbcType="VARCHAR"/>
+        <result property="thirtItemName" column="thirtItemName" jdbcType="VARCHAR"/>
+        <result property="thirtItemData" column="thirtItemData" jdbcType="VARCHAR"/>
+        <result property="fourthItemName" column="fourthItemName" jdbcType="VARCHAR"/>
+        <result property="fourthItemData" column="fourthItemData" jdbcType="VARCHAR"/>
+        <result property="fifthItemName" column="fifthItemName" jdbcType="VARCHAR"/>
+        <result property="fifthItemData" column="fifthItemData" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getExpandSkillsData" resultMap="BaseResultMap" parameterType="com.example.anime.Entity.individualInformationDataEntity.ExpandSkillsDataEntity">
+        select * from expand_skills_table where userName=#{userName} and location=#{location}
+    </select>
+
+    <update id="modifyExpandSkillsData" parameterType="com.example.anime.Entity.individualInformationDataEntity.ExpandSkillsDataEntity">
+        update expand_skills_table
+        <set>
+            userName=#{userName},
+            firstItemName=#{firstItemName},firstItemData=#{firstItemData},
+            secondItemName=#{secondItemName}, secondItemData=#{secondItemData},
+            thirtItemName=#{thirtItemName}, thirtItemData=#{thirtItemData},
+            fourthItemName=#{fourthItemName},fourthItemData=#{fourthItemData},
+            fifthItemName=#{fifthItemName}, fifthItemData=#{fifthItemData}
+        </set>
+        where userName=#{userName} and location=#{location}
+    </update>
+
+    <delete id="deleteExpandSkillsData" parameterType="java.lang.String">
+        delete from expand_skills_table where userName=#{userName} and location=#{location}
+    </delete>
+
+    <delete id="deleteAllExpandSkillsData" parameterType="java.lang.String">
+        delete from expand_skills_table where userName=#{userName}
+    </delete>
+
+    <insert id="addExpandSkillsData" parameterType="com.example.anime.Entity.individualInformationDataEntity.ExpandSkillsDataEntity">
+        insert into expand_skills_table values
+        (#{userName}, #{location}, #{firstItemName}, #{firstItemData}, #{secondItemName}, #{secondItemData}, #{thirtItemName},
+         #{thirtItemData}, #{fourthItemName}, #{fourthItemData}, #{fifthItemName}, #{fifthItemData})
+    </insert>
+
+</mapper>

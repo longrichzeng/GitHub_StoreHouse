@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.anime.Dao.administratorManagementDao.LogBoardManagementDataDao">
+    <resultMap id="BaseResultMap" type="com.example.anime.Entity.administratorManagementEntity.LogBoardManagementDataEntity">
+        <result property="logNumber" column="logNumber" jdbcType="VARCHAR"/>
+        <result property="executor" column="executor" jdbcType="VARCHAR"/>
+        <result property="executeEvent" column="executeEvent" jdbcType="VARCHAR"/>
+        <result property="accessInterface" column="accessInterface" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="executionTime" column="executionTime" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getLogBoardData" resultMap="BaseResultMap" parameterType="com.example.anime.Entity.administratorManagementEntity.LogBoardManagementDataEntity">
+        select * from log_management_table
+    </select>
+
+    <select id="getLogBoardByTime" resultMap="BaseResultMap" parameterType="com.example.anime.Entity.administratorManagementEntity.LogBoardManagementDataEntity">
+        select * from log_management_table where executionTime like concat('%',#{executionTime},'%')
+    </select>
+
+    <select id="getLogBoardByUsername" resultMap="BaseResultMap" parameterType="com.example.anime.Entity.administratorManagementEntity.LogBoardManagementDataEntity">
+        select * from log_management_table where executor = #{executor}
+    </select>
+
+    <insert id="addLogBoard" parameterType="com.example.anime.Entity.administratorManagementEntity.LogBoardManagementDataEntity">
+        insert into log_management_table values
+        (#{logNumber}, #{executor}, #{executeEvent}, #{accessInterface}, #{remark}, #{executionTime})
+    </insert>
+
+
+</mapper>

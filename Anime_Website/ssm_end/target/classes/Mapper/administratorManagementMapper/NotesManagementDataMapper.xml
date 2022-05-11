@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.anime.Dao.administratorManagementDao.NotesManagementDataDao">
+    <resultMap id="BaseResultMap" type="com.example.anime.Entity.administratorManagementEntity.NotesManagementDataEntity">
+        <result property="notesId" column="notesId" jdbcType="VARCHAR"/>
+        <result property="notesTitle" column="notesTitle" jdbcType="VARCHAR"/>
+        <result property="notesContent" column="notesContent" jdbcType="VARCHAR"/>
+        <result property="formationTime" column="formationTime" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getNotesInforData" resultMap="BaseResultMap" parameterType="com.example.anime.Entity.administratorManagementEntity.NotesManagementDataEntity">
+        select * from notes_management_table
+    </select>
+
+    <select id="getNotesInforDataByTime" resultMap="BaseResultMap" parameterType="com.example.anime.Entity.administratorManagementEntity.NotesManagementDataEntity">
+        select * from notes_management_table where formationTime = #{formationTime}
+    </select>
+
+    <select id="getNotesInforDataByTitle" resultMap="BaseResultMap" parameterType="com.example.anime.Entity.administratorManagementEntity.NotesManagementDataEntity">
+        select * from notes_management_table where notesTitle like concat('%',#{notesTitle},'%')
+    </select>
+
+    <update id="modifyNotesInforData" parameterType="com.example.anime.Entity.administratorManagementEntity.NotesManagementDataEntity">
+        update notes_management_table set notesId=#{notesId}, notesTitle=#{notesTitle}, notesContent=#{notesContent},
+        formationTime=#{formationTime} where notesId=#{notesId}
+    </update>
+
+    <delete id="deleteNotesInforData" parameterType="java.lang.String">
+        delete from notes_management_table where notesId=#{notesId}
+    </delete>
+
+    <insert id="addNotesInforData" parameterType="com.example.anime.Entity.administratorManagementEntity.NotesManagementDataEntity">
+        insert into notes_management_table values
+        (#{notesId}, #{notesTitle}, #{notesContent}, #{formationTime})
+    </insert>
+</mapper>

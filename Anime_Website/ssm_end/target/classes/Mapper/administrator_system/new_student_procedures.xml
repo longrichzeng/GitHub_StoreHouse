@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.administratorSystem.newStudentProceduresMapper">
+    <resultMap id="BaseResultMap" type="com.example.entity.admissionProcedures.payRegistrationEntity">
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="account" column="account" jdbcType="VARCHAR"/>
+        <result property="whetherRegister" column="whetherRegister" jdbcType="INTEGER"/>
+        <result property="whetherPay" column="whetherPay" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="getProceduresInfor" resultMap="BaseResultMap" parameterType="com.example.entity.admissionProcedures.payRegistrationEntity">
+        select * from pay_registration
+    </select>
+
+    <insert id="addProceduresInfor" parameterType="com.example.entity.admissionProcedures.payRegistrationEntity">
+        insert into pay_registration values (#{name}, #{account}, #{whetherRegister}, #{whetherPay})
+    </insert>
+
+    <update id="modifyProceduresInfor" parameterType="com.example.entity.admissionProcedures.payRegistrationEntity">
+        update pay_registration set name=#{name}, account=#{account}, whetherRegister=#{whetherRegister}, whetherPay=#{whetherPay} where account=#{account}
+    </update>
+
+    <delete id="deleteProceduresInfor" parameterType="java.lang.String">
+        delete from pay_registration where account=#{account}
+    </delete>
+
+</mapper>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.anime.Dao.administratorManagementDao.AnimeDrameManagementDataDao">
+    <resultMap id="BaseResultMap" type="com.example.anime.Entity.administratorManagementEntity.AnimeDrameManagementDataEntity">
+        <result property="animeNumber" column="animeNumber" jdbcType="VARCHAR"/>
+        <result property="animeName" column="animeName" jdbcType="VARCHAR"/>
+        <result property="animeType" column="animeType" jdbcType="VARCHAR"/>
+        <result property="animeAuthor" column="animeAuthor" jdbcType="VARCHAR"/>
+        <result property="animePublishTime" column="animePublishTime" jdbcType="VARCHAR"/>
+        <result property="animeRecommendIndex" column="animeRecommendIndex" jdbcType="VARCHAR"/>
+        <result property="animeIntroduction" column="animeIntroduction" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getAnimeDrameData" resultMap="BaseResultMap" parameterType="com.example.anime.Entity.administratorManagementEntity.AnimeDrameManagementDataEntity">
+        select * from anime_drama_management_table
+    </select>
+
+    <select id="getAnimeAboutType" resultMap="BaseResultMap" parameterType="com.example.anime.Entity.administratorManagementEntity.AnimeDrameManagementDataEntity">
+        select * from anime_drama_management_table where animeType = #{animeType}
+    </select>
+
+    <select id="getAnimeAboutIndex" resultMap="BaseResultMap" parameterType="com.example.anime.Entity.administratorManagementEntity.AnimeDrameManagementDataEntity">
+        select * from anime_drama_management_table where animeRecommendIndex = #{animeRecommendIndex}
+    </select>
+
+    <select id="getAnimeAboutName" resultMap="BaseResultMap" parameterType="com.example.anime.Entity.administratorManagementEntity.AnimeDrameManagementDataEntity">
+        select * from anime_drama_management_table where animeName like concat('%',#{animeName},'%')
+    </select>
+
+    <update id="modifyAnimeDrameData" parameterType="com.example.anime.Entity.administratorManagementEntity.AnimeDrameManagementDataEntity">
+        update anime_drama_management_table set animeNumber=#{animeNumber}, animeName=#{animeName}, animeType=#{animeType},
+        animeAuthor=#{animeAuthor}, animePublishTime=#{animePublishTime},animeRecommendIndex=#{animeRecommendIndex},
+        animeIntroduction=#{animeIntroduction} where animeNumber=#{animeNumber}
+    </update>
+
+    <delete id="deleteAnimeDrameData" parameterType="java.lang.String">
+        delete from anime_drama_management_table where animeNumber=#{animeNumber}
+    </delete>
+
+    <insert id="addAnimeDrameData" parameterType="com.example.anime.Entity.administratorManagementEntity.AnimeDrameManagementDataEntity">
+        insert into anime_drama_management_table values
+        (#{animeNumber}, #{animeName}, #{animeType}, #{animeAuthor}, #{animePublishTime}, #{animeRecommendIndex}, #{animeIntroduction})
+    </insert>
+</mapper>

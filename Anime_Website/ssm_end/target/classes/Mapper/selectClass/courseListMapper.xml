@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.selectClass.courseListMapper">
+    <resultMap id="BaseResultMap" type="com.example.entity.selectClass.courseListEntity">
+        <result property="courseNumber" column="courseNumber" jdbcType="VARCHAR"/>
+        <result property="courseName" column="courseName" jdbcType="VARCHAR"/>
+        <result property="classroom" column="classroom" jdbcType="VARCHAR"/>
+        <result property="teacher" column="teacher" jdbcType="VARCHAR"/>
+        <result property="testWay" column="testWay" jdbcType="VARCHAR"/>
+        <result property="score" column="score" jdbcType="VARCHAR"/>
+        <result property="courseType" column="courseType" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        courseNumber,courseName,classroom,teacher,testWay,score,courseType
+    </sql>
+
+    <select id="getCourseInfor" resultMap="BaseResultMap" parameterType="com.example.entity.selectClass.courseListEntity">
+        select * from course_list
+    </select>
+
+</mapper>

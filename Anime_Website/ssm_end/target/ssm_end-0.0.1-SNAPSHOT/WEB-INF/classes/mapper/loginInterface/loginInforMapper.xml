@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.loginInterface.loginInforMapper">
+    <resultMap id="BaseResultMap" type="com.example.entity.loginInterface.loginInforEntity">
+<!--    <resultMap id="BaseResultMap" type="java.lang.String">-->
+<!--        <id property="id" column="id" jdbcType="INTEGER"/>-->
+        <result property="account" column="account" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+<!--        <result property="password" column="password" jdbcType="VARCHAR"/>-->
+<!--        <result property="whetherChange" column="whetherChange" jdbcType="INTEGER"/>-->
+    </resultMap>
+<!--    resultMap="BaseResultMap"-->
+    <select id="getLoginInfor" resultMap="BaseResultMap" parameterType="com.example.entity.loginInterface.loginInforEntity">
+        select account, name from login_infor where account=#{account} and password=#{password}
+    </select>
+
+</mapper>

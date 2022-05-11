@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.anime.Dao.individualInformationDataDao.AnnualPlanDataDao">
+    <resultMap id="BaseResultMap" type="com.example.anime.Entity.individualInformationDataEntity.AnnualPlanDataEntity">
+        <result property="userName" column="userName" jdbcType="VARCHAR"/>
+        <result property="location" column="location" jdbcType="VARCHAR"/>
+        <result property="planContent" column="planContent" jdbcType="VARCHAR"/>
+        <result property="planNotes" column="planNotes" jdbcType="VARCHAR"/>
+        <result property="planGenerateDate" column="planGenerateDate" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getAnnualPlanData" resultMap="BaseResultMap" parameterType="com.example.anime.Entity.individualInformationDataEntity.AnnualPlanDataEntity">
+        select * from annual_plan_table where userName=#{userName}
+    </select>
+
+    <update id="modifyAnnualPlanData" parameterType="com.example.anime.Entity.individualInformationDataEntity.AnnualPlanDataEntity">
+        update annual_plan_table
+        <set>
+            userName=#{userName},location=#{location},planContent=#{planContent},planNotes=#{planNotes}, planGenerateDate=#{planGenerateDate}
+        </set>
+        where userName=#{userName} and location = #{location}
+    </update>
+
+    <delete id="deleteAnnualPlanData" parameterType="java.lang.String">
+        delete from annual_plan_table where userName=#{userName} and location = #{location}
+    </delete>
+
+    <delete id="deleteAllAnnualPlanData" parameterType="java.lang.String">
+        delete from annual_plan_table where userName=#{userName}
+    </delete>
+
+    <insert id="addAnnualPlanData" parameterType="com.example.anime.Entity.individualInformationDataEntity.AnnualPlanDataEntity">
+        insert into annual_plan_table values
+        (#{userName}, #{location}, #{planContent}, #{planNotes}, #{planGenerateDate})
+    </insert>
+
+</mapper>

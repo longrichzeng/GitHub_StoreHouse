@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.administratorSystem.courseSelectionManagementMapper">
+    <resultMap id="BaseResultMap" type="com.example.entity.selectClass.chooseCourseEntity">
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="account" column="account" jdbcType="VARCHAR"/>
+        <result property="firstCourse" column="firstCourse" jdbcType="VARCHAR"/>
+        <result property="firstNumber" column="firstNumber" jdbcType="VARCHAR"/>
+        <result property="secondCourse" column="secondCourse" jdbcType="VARCHAR"/>
+        <result property="secondNumber" column="secondNumber" jdbcType="VARCHAR"/>
+        <result property="thirtCourse" column="thirtCourse" jdbcType="VARCHAR"/>
+        <result property="thirtNumber" column="thirtNumber" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="getSelectCourseInfor" resultMap="BaseResultMap" parameterType="com.example.entity.selectClass.chooseCourseEntity">
+        select * from choose_course
+    </select>
+
+    <insert id="addSelectCourseInfor" parameterType="com.example.entity.selectClass.chooseCourseEntity">
+        insert into choose_course values (#{name}, #{account}, #{firstCourse}, #{firstNumber}, #{secondCourse},
+        #{secondNumber}, #{thirtCourse}, #{thirtNumber})
+    </insert>
+
+    <update id="modifySelectCourseInfor" parameterType="com.example.entity.selectClass.chooseCourseEntity">
+        update choose_course set name=#{name}, account=#{account}, firstCourse=#{firstCourse}, firstNumber=#{firstNumber}, secondCourse=#{secondCourse},
+        secondNumber=#{secondNumber}, thirtCourse=#{thirtCourse}, thirtNumber=#{thirtNumber}
+        where account=#{account}
+    </update>
+
+    <delete id="deleteSelectCourseInfor" parameterType="java.lang.String">
+        delete from choose_course where account=#{account}
+    </delete>
+
+</mapper>

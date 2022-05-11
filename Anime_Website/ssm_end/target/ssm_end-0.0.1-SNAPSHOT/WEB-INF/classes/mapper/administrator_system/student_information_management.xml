@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.administratorSystem.studentInformantionManagementMapper">
+    <resultMap id="BaseResultMap" type="com.example.entity.admissionProcedures.checkInforEntity">
+<!--        <id property="id" column="id" jdbcType="INTEGER"/>-->
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="number" column="number" jdbcType="VARCHAR"/>
+        <result property="classname" column="classname" jdbcType="VARCHAR"/>
+        <result property="gender" column="gender" jdbcType="INTEGER"/>
+        <result property="identityNumber" column="identityNumber" jdbcType="VARCHAR"/>
+        <result property="academicSystem" column="academicSystem" jdbcType="VARCHAR"/>
+        <result property="nationality" column="nationality" jdbcType="VARCHAR"/>
+        <result property="level" column="level" jdbcType="VARCHAR"/>
+        <result property="registrationNumber" column="registrationNumber" jdbcType="INTEGER"/>
+        <result property="politics" column="politics" jdbcType="VARCHAR"/>
+        <result property="academy" column="academy" jdbcType="VARCHAR"/>
+        <result property="studentAddress" column="studentAddress" jdbcType="VARCHAR"/>
+        <result property="professional" column="professional" jdbcType="INTEGER"/>
+        <result property="grade" column="grade" jdbcType="VARCHAR"/>
+        <result property="hightSchool" column="hightSchool" jdbcType="VARCHAR"/>
+        <result property="homeAddress" column="homeAddress" jdbcType="VARCHAR"/>
+<!--        <result property="headimage" column="headimage" jdbcType="VARCHAR"/>-->
+    </resultMap>
+    <select id="getAllStudentInfor" resultMap="BaseResultMap" parameterType="com.example.entity.admissionProcedures.checkInforEntity">
+        select * from check_infor
+    </select>
+
+    <insert id="addAllStudentInfor" parameterType="com.example.entity.admissionProcedures.checkInforEntity">
+        insert into check_infor values
+        (#{name}, #{number}, #{classname}, #{gender}, #{identityNumber}, #{academicSystem}, #{nationality}, #{level},
+        #{registrationNumber},#{politics}, #{academy}, #{studentAddress}, #{professional}, #{grade}, #{hightSchool}, #{homeAddress})
+    </insert>
+
+    <update id="modifyAllStudentInfor" parameterType="com.example.entity.admissionProcedures.checkInforEntity">
+        update check_infor set name=#{name}, number=#{number}, classname=#{classname}, gender=#{gender},identityNumber=#{identityNumber},
+        academicSystem=#{academicSystem}, nationality=#{nationality}, level=#{level},registrationNumber=#{registrationNumber},
+        politics=#{politics}, academy=#{academy}, studentAddress=#{studentAddress}, professional=#{professional},
+        grade=#{grade}, hightSchool=#{hightSchool}, homeAddress=#{homeAddress} where number=#{number}
+    </update>
+
+    <delete id="deleteAllStudentInfor" parameterType="java.lang.String">
+        delete from check_infor where number=#{number}
+    </delete>
+
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.physicalExamination.surgicalMapper">
+    <resultMap id="BaseResultMap" type="com.example.entity.physicalExamination.surgicalEntity">
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="account" column="account" jdbcType="VARCHAR"/>
+        <result property="height" column="height" jdbcType="VARCHAR"/>
+        <result property="weight" column="weight" jdbcType="VARCHAR"/>
+        <result property="skip" column="skip" jdbcType="VARCHAR"/>
+        <result property="face" column="face" jdbcType="VARCHAR"/>
+        <result property="neck" column="neck" jdbcType="VARCHAR"/>
+        <result property="spine" column="spine" jdbcType="VARCHAR"/>
+        <result property="limbs" column="limbs" jdbcType="VARCHAR"/>
+        <result property="joint" column="joint" jdbcType="VARCHAR"/>
+        <result property="surgicalAbnormalities" column="surgicalAbnormalities" jdbcType="VARCHAR"/>
+        <result property="passkey" column="passkey" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        name,account,height,weight,skip,face,neck,spine,limbs,joint,surgicalAbnormalities,passkey
+    </sql>
+
+    <insert id="addSurgicalInfor" parameterType="com.example.entity.physicalExamination.surgicalEntity">
+        insert into surgical values
+        (#{name}, #{account}, #{height}, #{weight}, #{skip}, #{face}, #{neck}, #{spine}, #{limbs}, #{joint}, #{surgicalAbnormalities}, #{passkey})
+    </insert>
+
+    <select id="getSurgicalInfor" resultMap="BaseResultMap" parameterType="com.example.entity.physicalExamination.surgicalEntity">
+        select * from surgical where account=#{account}
+    </select>
+
+</mapper>

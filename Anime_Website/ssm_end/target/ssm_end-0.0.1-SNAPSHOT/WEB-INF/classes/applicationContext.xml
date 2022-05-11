@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.3.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+    <!-- 使用注解进行开发,例如@Component, @Repository, @Service, @Controller, @Autowired, @Resources -->
+    <context:annotation-config/>
+
+    <!-- 注解扫描包 -->
+    <context:component-scan base-package="com.example">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!-- 1.数据源，读取db.properties文件，读取到数据库信息 -->
+    <context:property-placeholder location="classpath:db.properties"/>
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <!-- 2.创建sqlSessionFactory ===>核心配置文件的读取 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+<!--        <property name="mapperLocations" value="classpath:/mapper/loginInterface/loginInforMapper.xml"/>-->
+        <property name="mapperLocations">
+
+            <array>
+                <value>classpath:/mapper/loginInterface/loginInforMapper.xml</value>
+                <value>classpath:/mapper/admissionProcedures/checkInforMapper.xml</value>
+                <value>classpath:/mapper/admissionProcedures/payRegistrationMapper.xml</value>
+                <value>classpath:/mapper/physicalExamination/basicInformationMapper.xml</value>
+                <value>classpath:/mapper/physicalExamination/internalMedicineMapper.xml</value>
+                <value>classpath:/mapper/physicalExamination/ophtalmologyMapper.xml</value>
+                <value>classpath:/mapper/physicalExamination/otolaryngologyMapper.xml</value>
+                <value>classpath:/mapper/physicalExamination/physicalExaminationConclusionMapper.xml</value>
+                <value>classpath:/mapper/physicalExamination/stomatologyMapper.xml</value>
+                <value>classpath:/mapper/physicalExamination/surgicalMapper.xml</value>
+                <value>classpath:/mapper/selectClass/chooseCourseMapper.xml</value>
+                <value>classpath:/mapper/selectClass/courseListMapper.xml</value>
+
+                <value>classpath:/mapper/administrator_system/student_information_management.xml</value>
+                <value>classpath:/mapper/administrator_system/new_student_procedures.xml</value>
+                <value>classpath:/mapper/administrator_system/course_selection_management.xml</value>
+
+                <value>classpath:/mapper/administrator_system/physicalExaminationDataManagement/adminBasicInformationMapper.xml</value>
+                <value>classpath:/mapper/administrator_system/physicalExaminationDataManagement/adminInternalMedicineMapper.xml</value>
+                <value>classpath:/mapper/administrator_system/physicalExaminationDataManagement/adminOphtalmologyMapper.xml</value>
+                <value>classpath:/mapper/administrator_system/physicalExaminationDataManagement/adminOtolaryngologyMapper.xml</value>
+                <value>classpath:/mapper/administrator_system/physicalExaminationDataManagement/adminPhysicalExaminationConclusionMapper.xml</value>
+                <value>classpath:/mapper/administrator_system/physicalExaminationDataManagement/adminStomatologyMapper.xml</value>
+                <value>classpath:/mapper/administrator_system/physicalExaminationDataManagement/adminSurgicalMapper.xml</value>
+
+                <value>classpath:/mapper/administrator_system/adminLoginMapper.xml</value>
+
+            </array>
+        </property>
+    </bean>
+
+    <!-- 3.扫描mybatis的mapper接口路径, 这个bean可以把我们的mapper接口直接扫描到,直接把接口扫描完,注册到spring的bean中 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!-- 会在提供的base包下寻找interface,根据interface的名字,将首字母小写生成这个接口所对应的bean -->
+        <property name="basePackage" value="com.example.mapper"/>
+    </bean>
+
+    <!-- 4.事务处理 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <tx:advice id="txManager" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="query*" read-only="true"/>
+            <tx:method name="search*" read-only="true"/>
+            <tx:method name="select*" read-only="true"/>
+            <tx:method name="find*" read-only="true"/>
+            <tx:method name="*" isolation="DEFAULT" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config>
+        <aop:pointcut expression="execution(* com.example.service.*.*.*(..))" id="cut"/>
+        <aop:advisor advice-ref="txManager" pointcut-ref="cut"/>
+    </aop:config>
+
+</beans>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.anime.Dao.shoppingCartDataDao.ShoppingCartDataDao">
+    <resultMap id="BaseResultMapFirst" type="com.example.anime.Entity.shoppingCartDataEntity.ShoppingCartDataEntity">
+        <result property="shoppingCartJinPinNumber" column="shoppingCartJinPinNumber" jdbcType="VARCHAR"/>
+        <result property="jinPinBuyingUser" column="jinPinBuyingUser" jdbcType="VARCHAR"/>
+        <result property="jinPinPrice" column="jinPinPrice" jdbcType="VARCHAR"/>
+        <result property="jinPinPurchaseQuantity" column="jinPinPurchaseQuantity" jdbcType="VARCHAR"/>
+        <result property="jinPinTotalPrice" column="jinPinTotalPrice" jdbcType="VARCHAR"/>
+    </resultMap>
+<!--***********************************************************************************************************************-->
+    <resultMap id="BaseResultMapSecond" type="com.example.anime.Dto.ShoppingCartInformationDTO">
+        <result property="jinPinNumber" column="jinPinNumber" jdbcType="VARCHAR"/>
+        <result property="jinPinName" column="jinPinName" jdbcType="VARCHAR"/>
+        <result property="jinPinType" column="jinPinType" jdbcType="VARCHAR"/>
+        <result property="jinPinManufacturer" column="jinPinManufacturer" jdbcType="VARCHAR"/>
+        <result property="jinPinPrice" column="jinPinPrice" jdbcType="VARCHAR"/>
+        <result property="jinPinRecommendIndex" column="jinPinRecommendIndex" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="addJinpinToShoppingCart" parameterType="com.example.anime.Entity.shoppingCartDataEntity.ShoppingCartDataEntity">
+        insert into shopping_cart_table values (#{shoppingCartJinPinNumber}, #{jinPinBuyingUser}, #{jinPinPrice},
+        1, #{jinPinPrice}*#{jinPinPurchaseQuantity})
+    </insert>
+
+    <select id="getUserShoppingCart" resultMap="BaseResultMapFirst" parameterType="com.example.anime.Entity.shoppingCartDataEntity.ShoppingCartDataEntity">
+        select * from shopping_cart_table WHERE jinPinBuyingUser=#{jinPinBuyingUser}
+    </select>
+
+    <select id="getUserTotalShoppingCartData" resultMap="BaseResultMapSecond" parameterType="com.example.anime.Dto.ShoppingCartInformationDTO">
+        SELECT j.jinPinNumber, j.jinPinName, j.jinPinType, j.jinPinPrice, j.jinPinManufacturer,
+               s.jinPinBuyingUser, s.jinPinPurchaseQuantity, s.jinPinTotalPrice
+        FROM  jinpin_model_management_table j JOIN  shopping_cart_table s
+        WHERE  j.jinPinNumber=s.shoppingCartJinPinNumber AND s.jinPinBuyingUser = #{jinPinBuyingUser};
+    </select>
+
+    <delete id="deleteShoppingCartData" parameterType="com.example.anime.Entity.shoppingCartDataEntity.ShoppingCartDataEntity">
+        delete from shopping_cart_table where shoppingCartJinPinNumber=#{shoppingCartJinPinNumber} and jinPinBuyingUser=#{jinPinBuyingUser}
+    </delete>
+
+    <delete id="deleteAllShoppingCartData" parameterType="com.example.anime.Entity.shoppingCartDataEntity.ShoppingCartDataEntity">
+        delete from shopping_cart_table where jinPinBuyingUser=#{jinPinBuyingUser}
+    </delete>
+
+    <update id="addJinPinPurchaseQuantity" parameterType="com.example.anime.Entity.shoppingCartDataEntity.ShoppingCartDataEntity">
+        update shopping_cart_table
+        <set>
+            jinPinPurchaseQuantity = jinPinPurchaseQuantity + 1,
+            jinPinTotalPrice = jinPinPurchaseQuantity * jinPinPrice
+        </set>
+        where jinPinBuyingUser=#{jinPinBuyingUser} and shoppingCartJinPinNumber=#{shoppingCartJinPinNumber}
+    </update>
+<!--&(逻辑与)  &amp;
+<(小于)    &lt;
+>(大于)    &gt;
+"(双引号)  &quot;
+'(单引号)  &apos;-->
+    <update id="subJinPinPurchaseQuantity" parameterType="com.example.anime.Entity.shoppingCartDataEntity.ShoppingCartDataEntity">
+        update shopping_cart_table
+        <set>
+            jinPinPurchaseQuantity = IF(jinPinPurchaseQuantity &lt; 2, 1, jinPinPurchaseQuantity -1),
+            jinPinTotalPrice = jinPinPurchaseQuantity * jinPinPrice
+        </set>
+        <where>
+            jinPinBuyingUser=#{jinPinBuyingUser} and shoppingCartJinPinNumber=#{shoppingCartJinPinNumber}
+        </where>
+    </update>
+
+</mapper>

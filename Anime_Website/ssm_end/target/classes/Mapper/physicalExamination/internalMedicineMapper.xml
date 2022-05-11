@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.physicalExamination.internalMedicineMapper">
+    <resultMap id="BaseResultMap" type="com.example.entity.physicalExamination.internalMedicineEntity">
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="account" column="account" jdbcType="VARCHAR"/>
+        <result property="systolic" column="gender" jdbcType="VARCHAR"/>
+        <result property="diastolic" column="diastolic" jdbcType="VARCHAR"/>
+        <result property="development" column="development" jdbcType="VARCHAR"/>
+        <result property="nerve" column="nerve" jdbcType="VARCHAR"/>
+        <result property="breathe" column="breathe" jdbcType="VARCHAR"/>
+        <result property="cardiovascular" column="cardiovascular" jdbcType="VARCHAR"/>
+        <result property="liver" column="liver" jdbcType="VARCHAR"/>
+        <result property="spleen" column="spleen" jdbcType="VARCHAR"/>
+        <result property="chestXray" column="chestXray" jdbcType="VARCHAR"/>
+        <result property="abnormalChestXray" column="abnormalChestXray" jdbcType="VARCHAR"/>
+        <result property="internalMedicineAbnormalities" column="internalMedicineAbnormalities" jdbcType="VARCHAR"/>
+        <result property="passkey" column="passkey" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        name,account,systolic,diastolic,development,nerve,address,originalSchool,profession,whetherMarry,brithday,pastMedicalHistory,passkey
+    </sql>
+
+    <insert id="addInternalMedicineInfor" parameterType="com.example.entity.physicalExamination.internalMedicineEntity">
+        insert into internal_medicine values
+        (#{name}, #{account}, #{systolic}, #{diastolic}, #{development}, #{nerve}, #{breathe}, #{cardiovascular}, #{liver}, #{spleen}, #{chestXray}, #{abnormalChestXray}, #{internalMedicineAbnormalities}, #{passkey})
+    </insert>
+
+    <select id="getInternalMedicineInfor" resultMap="BaseResultMap" parameterType="com.example.entity.physicalExamination.internalMedicineEntity">
+        select * from internal_medicine where account=#{account}
+    </select>
+
+</mapper>

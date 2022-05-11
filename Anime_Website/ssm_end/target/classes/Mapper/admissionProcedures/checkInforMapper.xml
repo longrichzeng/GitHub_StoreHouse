@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.admissionProcedures.checkInforMapper">
+    <resultMap id="BaseResultMap" type="com.example.entity.admissionProcedures.checkInforEntity">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="number" column="number" jdbcType="VARCHAR"/>
+        <result property="class" column="class" jdbcType="VARCHAR"/>
+        <result property="gender" column="gender" jdbcType="INTEGER"/>
+        <result property="identityNumber" column="identityNumber" jdbcType="VARCHAR"/>
+        <result property="academicSystem" column="academicSystem" jdbcType="VARCHAR"/>
+        <result property="nationality" column="nationality" jdbcType="VARCHAR"/>
+        <result property="level" column="level" jdbcType="VARCHAR"/>
+        <result property="registrationNumber" column="registrationNumber" jdbcType="INTEGER"/>
+        <result property="politics" column="politics" jdbcType="VARCHAR"/>
+        <result property="academy" column="academy" jdbcType="VARCHAR"/>
+        <result property="studentAddress" column="studentAddress" jdbcType="VARCHAR"/>
+        <result property="professional" column="professional" jdbcType="INTEGER"/>
+        <result property="grade" column="grade" jdbcType="VARCHAR"/>
+        <result property="hightSchool" column="hightSchool" jdbcType="VARCHAR"/>
+        <result property="homeAddress" column="homeAddress" jdbcType="VARCHAR"/>
+        <result property="headimage" column="headimage" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="getcheckInfor" resultMap="BaseResultMap" parameterType="com.example.entity.admissionProcedures.checkInforEntity">
+        select * from check_infor where number=#{number}
+    </select>
+
+</mapper>

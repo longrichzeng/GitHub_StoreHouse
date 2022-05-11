@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.administratorSystem.physicalExaminationDataManagementMapper.adminOtolaryngologyMapper">
+    <resultMap id="BaseResultMap" type="com.example.entity.physicalExamination.otolaryngologyEntity">
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="account" column="account" jdbcType="VARCHAR"/>
+        <result property="rightHearing" column="rightVision" jdbcType="VARCHAR"/>
+        <result property="leftHearing" column="leftVision" jdbcType="VARCHAR"/>
+        <result property="small" column="rightCorrectedVision" jdbcType="VARCHAR"/>
+        <result property="earNoseThroat" column="leftCorrectedVision" jdbcType="VARCHAR"/>
+        <result property="passkey" column="passkey" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        name,account,gender,cultureLevel,nation,hometown,address,originalSchool,profession,whetherMarry,brithday,pastMedicalHistory,passkey
+    </sql>
+
+    <select id="getOtolaryngologyInfor" resultMap="BaseResultMap" parameterType="com.example.entity.physicalExamination.otolaryngologyEntity">
+        select * from otolaryngology
+    </select>
+
+    <insert id="addOtolaryngologyInfor" parameterType="com.example.entity.physicalExamination.otolaryngologyEntity">
+        insert into otolaryngology values
+        (#{name}, #{account}, #{rightHearing}, #{leftHearing}, #{small}, #{earNoseThroat}, #{passkey})
+    </insert>
+
+    <update id="modifyOtolaryngologyInfor" parameterType="com.example.entity.physicalExamination.otolaryngologyEntity">
+        update otolaryngology set name=#{name}, account=#{account}, rightHearing=#{rightHearing}, leftHearing=#{leftHearing},
+        small=#{small},earNoseThroat=#{earNoseThroat}, passkey=#{passkey} where account=#{account}
+    </update>
+
+    <delete id="deleteOtolaryngologyInfor" parameterType="java.lang.String">
+        delete from otolaryngology where account=#{account}
+    </delete>
+
+</mapper>
